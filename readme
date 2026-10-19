@@ -1,0 +1,105 @@
+# Bar Escolar — Gestão de Encomendas e Pagamentos
+
+## Sobre o projeto
+
+O **Bar Escolar** é uma aplicação web desenvolvida em Python com Django, criada para facilitar a gestão de produtos, encomendas e pagamentos num bar escolar.
+
+O sistema permite aos alunos consultar os produtos disponíveis, realizar encomendas e gerir o seu saldo, enquanto os funcionários podem acompanhar e gerir as encomendas.
+
+Este projeto foi desenvolvido no âmbito de um trabalho académico do curso de Programador de Informática.
+
+## Funcionalidades
+
+- **Gestão de produtos:** apresentação de produtos com imagens, preços e categorias.
+- **Autenticação de utilizadores:** registo e início de sessão.
+- **Carrinho de compras:** seleção e gestão dos produtos pretendidos.
+- **Encomendas:** realização de encomendas e consulta do respetivo histórico.
+- **Gestão de saldo:** consulta e carregamento do saldo do utilizador.
+- **Pagamentos:** disponibilização de instruções para pagamento por Multibanco.
+- **Área de funcionários:** acompanhamento e gestão das encomendas.
+- **Administração:** gestão dos dados da aplicação através do painel administrativo do Django.
+
+## Tecnologias utilizadas
+
+- **Python** — linguagem de programação.
+- **Django** — framework para desenvolvimento web.
+- **SQLite** — sistema de gestão de base de dados.
+- **HTML e CSS** — estrutura e apresentação das páginas.
+- **Pillow** — suporte para tratamento de imagens.
+
+## Estrutura do projeto
+
+```text
+TP_Avaliacao_FA_GP/
+├── app_encomenda/    # Encomendas, utilizadores e pagamentos
+├── app_produtos/     # Gestão e apresentação de produtos
+├── personal_page/    # Configuração e páginas do projeto
+├── landing_page/     # Páginas adicionais, se existentes
+├── static/           # Ficheiros estáticos
+├── staticfiles/      # Ficheiros estáticos recolhidos
+├── imagens/          # Imagens dos produtos
+├── db.sqlite3        # Base de dados SQLite
+├── manage.py         # Utilitário de administração do Django
+└── requirements.txt  # Dependências do projeto
+```
+
+## Como executar o projeto
+
+### 1. Pré-requisitos
+
+- Python instalado.
+- Git (opcional, para clonar o repositório).
+
+### 2. Clonar o repositório
+
+```bash
+git https://github.com/fernandaazevedoepg-hue/bar_da_escola
+cd TP_Avaliacao_FA_GP
+```
+
+
+### 3. Criar um ambiente virtual
+
+```bash
+python -m venv venv
+```
+
+Ativa o ambiente virtual no Windows:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 4. Instalar as dependências
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 5. Preparar a base de dados
+
+```bash
+python manage.py migrate
+```
+
+### 6. Iniciar o servidor
+
+```bash
+python manage.py runserver
+```
+
+A aplicação ficará disponível em:
+
+http://127.0.0.1:8000/
+
+## Objetivos de aprendizagem
+
+Este projeto permitiu aplicar conhecimentos de programação em Python, desenvolvimento web com Django, organização de aplicações, gestão de bases de dados relacionais, autenticação de utilizadores e criação de interfaces web.
+
+## Estado do projeto
+
+Projeto académico desenvolvido para fins de aprendizagem e demonstração de competências em desenvolvimento web.
+
+---
+
+**Tecnologias principais:** Python · Django · SQLite · HTML · CSS
