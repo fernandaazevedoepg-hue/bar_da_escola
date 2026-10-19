@@ -1,0 +1,55 @@
+<header class="site-header">
+    <div class="container text-center">
+        <h1 class="site-title">Bar Escolar</h1>
+        <p class="site-subtitle">Gestão de Encomendas e Pagamentos</p>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg site-navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <ul class="navbar-nav flex-row gap-3 align-items-center">
+            <li class="nav-item">
+                <a class="navbar-brand" href="{% url 'home' %}">Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'produtos' %}">Produtos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'ver_carrinho' %}">Carrinho</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'encomendas' %}">Encomendas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'carregar_saldo' %}">Carregar Saldo</a>
+            </li>
+
+            {% if utilizador and utilizador.tipo == "funcionario" %}
+                <li class="nav-item">
+                    <a class="nav-link painel" href="{% url 'painel_funcionario' %}">Painel de Gestão</a>
+                </li>
+            {% endif %}
+        </ul>
+
+        {% if utilizador %}
+            <div class="user-info d-flex align-items-center gap-2">
+                {% if utilizador.tipo == 'funcionario' %}
+                    <i class="bi bi-gear-fill text-secondary fs-5" title="Funcionário"></i>
+                {% elif utilizador.tipo == 'professor' %}
+                    <i class="bi bi-mortarboard-fill text-primary fs-5" title="Professor"></i>
+                {% elif utilizador.tipo == 'aluno' %}
+                    <i class="bi bi-person-fill text-success fs-5" title="Aluno"></i>
+                {% endif %}
+
+                <span class="fw-semibold">{{ utilizador.nome }}</span>
+                <span class="user-saldo">{{ utilizador.saldo|floatformat:2 }} €</span>
+                <a class="nav-link sair" href="{% url 'logout' %}">Sair</a>
+            </div>
+        {% else %}
+            <div>
+                <a class="nav-link entrar" href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
+    </div>
+</nav>

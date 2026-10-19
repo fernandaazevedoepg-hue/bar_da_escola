@@ -1,0 +1,98 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+{% block title %}
+    Carrinho
+{% endblock %}
+
+{% block content %}
+<div class="carrinho-container">
+    <h2 class="mb-3 text-center">Carrinho</h2>
+
+    {% if messages %}
+        <div class="container mb-3">
+            {% for message in messages %}
+                <div class="alert 
+                    {% if message.tags == 'error' %}alert-danger
+                    {% elif message.tags == 'success' %}alert-success
+                    {% elif message.tags == 'info' %}alert-info
+                    {% else %}alert-secondary{% endif %}" 
+                    role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+            {% if config %}
+        {% if config %}
+            <div class="horario-funcionamento mt-2 mb-4 text-center">
+                <strong><i class="bi bi-clock"></i> Horário de funcionamento:</strong><br>
+                {{ config.hora_inicio|time:"H:i" }} - {{ config.hora_fim|time:"H:i" }}<br>
+                <small>Dias: {{ dias_funcionamento|join:", " }}</small>
+            </div>
+{% endif %}
+
+            {% endif %}
+    {% if itens %}
+        <table class="tabela-produtos table table-striped">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Qtd</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in itens %}
+                    <tr>
+                        <td>{{ i.produto.nome }}</td>
+                        <td>
+                            <a href="{% url 'alterar_qtd' i.produto.id 'menos' %}" class="btn btn-danger btn-sm">-</a>
+                            <span class="mx-2">{{ i.quantidade }}</span>
+                            <a href="{% url 'alterar_qtd' i.produto.id 'mais' %}" class="btn btn-success btn-sm">+</a>
+                        </td>
+                        <td>{{ i.subtotal }} €</td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="{% url 'remover_item' i.produto.id %}">Remover</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="text-end mt-3">
+            <strong>Total: {{ total }} €</strong>
+        </p>
+
+        <form method="post" action="{% url 'finalizar_encomenda' %}" class="mt-3">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="levantamento_em">Data e hora do levantamento:</label>
+                <input
+                    type="datetime-local"
+                    id="levantamento_em"
+                    name="levantamento_em"
+                    required
+                    min="{{ agora|date:'Y-m-d\\TH:i' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="metodo" class="form-label">Método de pagamento:</label>
+                <select id="metodo" name="metodo" class="form-select" required>
+                    <option value="cartao">Saldo</option>
+                    <option value="multibanco">Multibanco</option>
+                </select>
+            </div>
+
+            <div class="text-end">
+                <button class="btn btn-success" type="submit">Finalizar Encomenda</button>
+            </div>
+        </form>
+
+    {% else %}
+        <p class="text-center">O carrinho está vazio.</p>
+    {% endif %}
+</div>
+{% endblock %}

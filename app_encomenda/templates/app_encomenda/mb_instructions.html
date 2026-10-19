@@ -1,0 +1,24 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+{% block title %}Pagamento Multibanco{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card p-4">
+    <h4>Pagamento por Multibanco</h4>
+    <p>Para concluir a encomenda, faça o pagamento usando os dados abaixo:</p>
+    <ul>
+      <li><strong>Entidade:</strong> {{ mb_entidade }}</li>
+      <li><strong>Referência:</strong> {{ mb_referencia }}</li>
+      <li><strong>Valor:</strong> {{ mb_valor }} €</li>
+    </ul>
+
+    <form method="post" action="{% url 'confirmar_mb_pagamento' encomenda.id %}">
+      {% csrf_token %}
+      <button class="btn btn-success" type="submit">Pagamento (confirmar)</button>
+      <a class="btn btn-secondary" href="{% url 'encomendas' %}">Voltar às encomendas</a>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

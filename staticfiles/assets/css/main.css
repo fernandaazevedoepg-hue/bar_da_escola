@@ -1,0 +1,228 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estrutura principal */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #3b3b3b;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: none !important; /* Impede que uma cor substitua o fundo com imagem */
+}
+
+/* Permite que o fundo com imagem seja visível */
+main, .site-header, .site-footer, .site-navbar {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Fundo da página inicial */
+body.fundo-home {
+    background: url("../img/Tela_Inicial.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Fundo padrão (restantes páginas) */
+body.fundo-padrao {
+    background: url("../img/Fundo_Padrao.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Camada translúcida para melhorar leitura */
+body.fundo-home::before,
+body.fundo-padrao::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    z-index: -1;
+}
+
+/* ======================= */
+/* ======= HEADER ======== */
+/* ======================= */
+.site-header {
+    color: #523a28;
+    text-align: center;
+    padding: 2rem 0 1rem;
+    border-bottom: 3px solid #9a8c7c;
+}
+
+.site-title {
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin: 0 0 0.3rem;
+}
+
+.site-subtitle {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ======================= */
+/* ======== NAVBAR ======= */
+/* ======================= */
+.site-navbar {
+    border-bottom: 3px solid #9a8c7c;
+    padding: 0.5rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #523a28 !important;
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link {
+    color: #523a28 !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.navbar-nav .nav-link:hover {
+    background: #e7d9c7;
+}
+
+.navbar-nav .sair {
+    color: #a63232 !important;
+    font-weight: 600;
+}
+
+.navbar-nav .entrar {
+    color: #2a7a3b !important;
+    font-weight: 600;
+}
+
+/* ======================= */
+/* ======== FOOTER ======= */
+/* ======================= */
+.site-footer {
+    color: #523a28;
+    border-top: 3px solid #9a8c7c;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ======================= */
+/* ======= CATÁLOGO ====== */
+/* ======================= */
+.catalogo-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: rgba(253, 250, 247, 0.85);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.catalogo-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.catalogo-header h2 {
+    font-weight: 700;
+    color: #4e342e;
+}
+
+.catalogo-header p {
+    color: #6d4c41;
+}
+
+.grupo {
+    margin-top: 40px;
+}
+
+.grupo h3 {
+    color: #4e342e;
+    border-bottom: 3px solid #8d6e63;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.tabela-produtos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabela-produtos th {
+    background: #8d6e63;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.tabela-produtos td {
+    padding: 10px;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+.produto-img {
+    width: 100px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* ======================= */
+/* ======== BOTÕES ======= */
+/* ======================= */
+.btn-adicionar {
+    display: inline-block;
+    background: #388e3c;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-adicionar:hover {
+    background: #2e7d32;
+}
+
+.esgotado {
+    color: #c62828;
+    font-weight: 500;
+}
+
+/* ======================= */
+/* ======== CARRINHO ===== */
+/* ======================= */
+.carrinho-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: rgba(253, 250, 247, 0.85);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #4e342e;
+}
+
+input[type="date"],
+input[type="datetime-local"] {
+    border: 1px solid #8d6e63;
+    border-radius: 6px;
+    padding: 8px;
+}

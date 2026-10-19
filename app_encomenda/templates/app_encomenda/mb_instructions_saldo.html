@@ -1,0 +1,21 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+{% block title %}Pagamento MBWay{% endblock %}
+{% block content %}
+<div class="card p-4 mt-3">
+  <h4>Pagamento por MBWay</h4>
+  <p>Para concluir o carregamento, efetue o pagamento MBWay com os dados abaixo:</p>
+  <ul>
+    <li><strong>Entidade:</strong> {{ mb_entidade }}</li>
+    <li><strong>Referência:</strong> {{ mb_referencia }}</li>
+    <li><strong>Valor:</strong> {{ mb_valor }} €</li>
+  </ul>
+
+  <form method="post" action="{% url 'confirmar_mb_topup' %}">
+    {% csrf_token %}
+    <button class="btn btn-success" type="submit">Confirmar pagamento </button>
+    <a class="btn btn-secondary" href="{% url 'carregar_saldo' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

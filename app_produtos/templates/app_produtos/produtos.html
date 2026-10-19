@@ -1,0 +1,82 @@
+{% extends "personal_page/base.html" %}
+
+{% block title %}Produtos{% endblock %}
+
+{% block content %}
+<div class="catalogo-container">
+    <div class="catalogo-header text-center mb-4">
+        <h2>Catálogo de Produtos</h2>
+        <p>Escolha os produtos que deseja adicionar ao carrinho.</p>
+
+        <form method="get" class="d-inline-block mt-3">
+            <label for="categoria" class="fw-bold me-2">Filtrar por categoria:</label>
+            <select name="categoria" id="categoria" class="form-select d-inline-block w-auto" onchange="this.form.submit()">
+                <option value="">Todas</option>
+                {% for cat_key, cat_nome in categorias.items %}
+                    <option value="{{ cat_key }}" {% if categoria_selecionada == cat_key %}selected{% endif %}>
+                        {{ cat_nome }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            {% if categoria_selecionada == 'bebidas' %}
+                <select name="subcategoria" id="subcategoria" class="form-select d-inline-block w-auto ms-2" onchange="this.form.submit()">
+                    <option value="">Todas as Bebidas</option>
+                    {% for sub_key, sub_nome in subcategorias.items %}
+                        {% if sub_key != 'nenhuma' %}
+                            <option value="{{ sub_key }}" {% if subcategoria_selecionada == sub_key %}selected{% endif %}>
+                                {{ sub_nome }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </form>
+    </div>
+
+    {% for categoria, subgrupos in produtos_por_categoria.items %}
+        <div class="grupo mb-5">
+            <h3 class="mt-4">{{ categoria }}</h3>
+
+            {% for subcat, produtos in subgrupos.items %}
+                {% if subcat %}
+                    <h5 class="mt-3 text-muted">{{ subcat }}</h5>
+                {% endif %}
+
+                <div class="row g-4 mt-2">
+                    {% for p in produtos %}
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card produto-card h-100 text-center p-2 shadow-sm">
+                                {% if p.imagem %}
+                                    <img src="{{ p.imagem.url }}" alt="{{ p.nome }}" class="card-img-top produto-img mx-auto mt-2">
+                                {% else %}
+                                    <div class="sem-imagem">Sem imagem</div>
+                                {% endif %}
+
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h6 class="card-title fw-bold">{{ p.nome }}</h6>
+                                        {% if p.descricao %}
+                                            <p class="text-muted small">{{ p.descricao }}</p>
+                                        {% endif %}
+                                        <p class="preco mb-2"><strong>{{ p.preco }} €</strong></p>
+                                    </div>
+
+                                    <div class="mt-auto">
+                                        {% if p.quantidade > 0 %}
+                                            <a href="{% url 'adicionar_carrinho' p.id %}" class="btn btn-success w-100">Adicionar</a>
+                                            <p class="text-muted small text-center mt-1">Stock: {{ p.quantidade }}</p>
+                                        {% else %}
+                                            <p class="text-danger fw-bold text-center mt-2">Esgotado</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

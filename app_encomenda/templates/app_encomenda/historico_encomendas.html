@@ -1,0 +1,51 @@
+{% extends "personal_page/base.html" %}
+
+{% block title %}Histórico de Encomendas{% endblock %}
+
+{% block content %}
+<div class="catalogo-container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Histórico de Encomendas</h2>
+        <a href="{% url 'painel_funcionario' %}" class="btn btn-outline-primary">Voltar ao painel</a>
+    </div>
+
+    {% if historico %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Utilizador</th>
+                    <th>Estado</th>
+                    <th>Levantamento</th>
+                    <th>Itens</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in historico %}
+                    <tr>
+                        <td>#{{ e.id }}</td>
+                        <td>{{ e.utilizador.nome }} ({{ e.utilizador.tipo }})</td>
+                        <td>
+                            {% if e.estado == "cancelada" %}
+                                <span class="badge bg-danger">Cancelada</span>
+                            {% else %}
+                                <span class="badge bg-success">Concluída</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ e.levantamento_em|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <ul class="mb-0">
+                                {% for item in e.itens.all %}
+                                    <li>{{ item.quantidade }}x {{ item.produto.nome }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-muted">Nenhuma encomenda concluída ou cancelada.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+
+{% block title %}Minhas Encomendas{% endblock %}
+{% block content %}
+<div class="catalogo-container">
+  <h2>Minhas Encomendas</h2>
+
+  {% if minhas %}
+    {% for e in minhas %}
+      <div class="mb-4 p-3 bg-white rounded shadow-sm border">
+        <h5 class="mb-2">
+          <strong>Encomenda #{{ e.id }}</strong> — {{ e.estado|title }}
+        </h5>
+        <p class="mb-1"><strong>Data:</strong> {{ e.data_hora|date:"d/m/Y H:i" }}</p>
+        {% if e.levantamento_em %}
+          <p class="mb-1"><strong>Levantamento:</strong> {{ e.levantamento_em|date:"d/m/Y H:i" }}</p>
+        {% endif %}
+
+        <table class="table table-sm mt-2 mb-2">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Qtd</th>
+              <th>Subtotal (€)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in e.itens.all %}
+              <tr>
+                <td>{{ item.produto.nome }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>{{ item.subtotal }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <p class="text-end fw-bold fs-5">Total: {{ e.total }} €</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-center">Ainda não tem encomendas.</p>
+  {% endif %}
+</div>
+{% endblock %}

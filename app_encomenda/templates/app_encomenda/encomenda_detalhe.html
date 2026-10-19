@@ -1,0 +1,32 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+
+{% block title %}Encomenda #{{ encomenda.id }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card p-3">
+    <h4>Encomenda #{{ encomenda.id }} — {{ encomenda.estado|title }}</h4>
+    <p><strong>Data:</strong> {{ encomenda.data_hora|date:"d/m/Y H:i" }}</p>
+    {% if encomenda.levantamento_em %}
+      <p><strong>Levantamento:</strong> {{ encomenda.levantamento_em|date:"d/m/Y H:i" }}</p>
+    {% endif %}
+    {% if encomenda.mb_entidade %}
+      <p><strong>MB Entidade:</strong> {{ encomenda.mb_entidade }} — <strong>Referência:</strong> {{ encomenda.mb_referencia }}</p>
+    {% endif %}
+    <table class="table">
+      <thead><tr><th>Produto</th><th>Qtd</th><th>Subtotal</th></tr></thead>
+      <tbody>
+        {% for i in encomenda.itens.all %}
+          <tr>
+            <td>{{ i.produto.nome }}</td>
+            <td>{{ i.quantidade }}</td>
+            <td>{{ i.subtotal }} €</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="text-end fw-bold">Total: {{ encomenda.total }} €</p>
+  </div>
+</div>
+{% endblock %}

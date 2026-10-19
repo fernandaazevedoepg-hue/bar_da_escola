@@ -1,0 +1,18 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+{% block title %}
+    Encomenda
+{% endblock %}
+
+{% block content %}
+    <div class="catalogo-container text-center">
+        {% if erro %}
+            <h3 class="text-danger">{{ erro }}</h3>
+        {% elif encomenda %}
+            <h3 class="text-success">Encomenda Confirmada</h3>
+            <p>Número: <strong>#{{ encomenda.id }}</strong></p>
+            <p>Total pago: <strong>{{ encomenda.total }} €</strong></p>
+        {% endif %}
+    </div>
+{% endblock %}

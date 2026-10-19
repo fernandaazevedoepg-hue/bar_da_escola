@@ -1,0 +1,53 @@
+{% extends "personal_page/base.html" %}
+{% block body_class %}fundo-padrao{% endblock %}
+
+
+{% block title %}
+    Registar
+{% endblock %}
+
+{% block content %}
+    <div class="catalogo-container text-center" style="max-width: 520px;">
+        <h2>Criar Conta</h2>
+
+        {% for message in messages %}
+            <p class="text-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+
+        <form 
+            method="post" 
+            action="{% url 'registar' %}" 
+            class="d-flex flex-column align-items-center gap-2"
+        >
+            {% csrf_token %}
+            <input 
+                type="text" 
+                name="nome" 
+                placeholder="Nome" 
+                class="form-control" 
+                required
+            >
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Email" 
+                class="form-control" 
+                required
+            >
+            <select name="tipo" class="form-select" required>
+                <option value="" disabled selected>Tipo de utilizador</option>
+                <option value="aluno">Aluno</option>
+                <option value="professor">Professor</option>
+                <option value="funcionario">Funcionário</option>
+            </select>
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Palavra-passe" 
+                class="form-control" 
+                required
+            >
+            <button class="btn btn-success mt-2" type="submit">Criar Conta</button>
+        </form>
+    </div>
+{% endblock %}
